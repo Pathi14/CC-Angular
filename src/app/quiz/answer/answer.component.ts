@@ -19,6 +19,7 @@ export class AnswerComponent {
 
   addAnswer(answer: string, questionId: number) {
     this.quizService.addAnswer(answer, questionId);
+    console.log(this.answers.length);
   }
 
   isAnswerSelected(answer: string, id: number) {
