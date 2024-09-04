@@ -9,9 +9,10 @@
            OK
         </button>
     </form>
-    <div class="cat_container" *ngFor="let cat of cats">
-        <button (click)="navigateToQuiz()">{{cat}} </button>
-    </div>
-</section>
+    
+        <div class="cat_container" *ngFor="let cat of cats">
+          <button (click)="navigateToQuiz()">{{cat}}</button>
+        </div>
+      </section>
 
 <!-- [class.answer_container--selected]="isAnswerSelected(answer?.answerLabel, questionId)" -->

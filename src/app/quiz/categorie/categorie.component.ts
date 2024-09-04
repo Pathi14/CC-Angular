@@ -11,7 +11,9 @@ import { CategorieService } from 'src/app/shared/services/categorie.service';
 })
 export class CategorieComponent {
   playerName = '';
+  
   cats: string[]= [];
+  selectedCategory = '';
 
   constructor(private router: Router, private authService: AuthService, private categorieService: CategorieService  ) { }
 
@@ -22,16 +24,19 @@ export class CategorieComponent {
     this.getQuestionsByCategoryId('CSS')
   }
 
-  navigateToQuiz() {
-    this.router.navigate(['/quiz', this.playerName]);
+  navigateToQuiz( ) {
+  
+    this.router.navigate(['/quiz/:', this.playerName]);
   }
   
-  getCategories() {
+
+  getCategories(): void {
     this.categorieService.getCategories().subscribe(data => {
-      this.cats=data;
-      console.log("les categories",this.cats);
+      this.cats = data.map((category: any) => category.categorieName);
+      console.log("les categories", this.cats);
     });
   }
+
   getQuestionsByCategoryId(categoryName: string) {
     this.categorieService.getQuestionsByCategory (categoryName).subscribe(data => {
       console.log("les questions "+categoryName, data);
