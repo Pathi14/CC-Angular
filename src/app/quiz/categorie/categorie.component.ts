@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
+import { CategorieService } from 'src/app/shared/services/categorie.service';
+
 
 @Component({
   selector: 'app-categorie',
@@ -9,15 +11,32 @@ import { AuthService } from 'src/app/auth/auth.service';
 })
 export class CategorieComponent {
   playerName = '';
+  cats: string[]= [];
 
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private router: Router, private authService: AuthService, private categorieService: CategorieService  ) { }
 
   ngOnInit(): void {
     this.authService.isUserConnected();
     this.playerName = this.authService.user?.username || '';
+    this.getCategories();
+    this.getQuestionsByCategoryId('CSS')
   }
 
   navigateToQuiz() {
     this.router.navigate(['/quiz', this.playerName]);
+  }
+  
+  getCategories() {
+    this.categorieService.getCategories().subscribe(data => {
+      this.cats=data;
+      console.log("les categories",this.cats);
+    });
+  }
+  getQuestionsByCategoryId(categoryName: string) {
+    this.categorieService.getQuestionsByCategory (categoryName).subscribe(data => {
+      console.log("les questions "+categoryName, data);
+    }, error => {
+      console.error("Error fetching questions", error);
+    });
   }
 }

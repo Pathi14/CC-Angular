@@ -9,8 +9,8 @@
            OK
         </button>
     </form>
-    <div class="cat_container">
-        <button (click)="navigateToQuiz()">Angular</button>
+    <div class="cat_container" *ngFor="let cat of cats">
+        <button (click)="navigateToQuiz()">{{cat}} </button>
     </div>
 </section>
 
